@@ -1,0 +1,36 @@
+// customize some Bootstrap variables
+$primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text&family=Waterfall&display=swap');
+
+
+.navbar {
+  background : black;
+  font-family: 'Big Shoulders Text', cursive;
+  font-size: 1.5rem;
+}
+
+.navbar img {
+  width: 10rem;
+}
+
+.navbar a {
+  color: white;
+}
+
+.navbar a:hover {
+  color: #EBCD94;
+}
+
+.ws-nav {
+  font-family: 'Waterfall', cursive;
+  font-size: 3rem;
+}
+
+.ws-nav a:hover {
+  color: white;
+}
+

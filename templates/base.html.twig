@@ -12,8 +12,13 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <link rel="icon" href="../images/favicon.ico"/>
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <header>
+        {% include '_navbar.html.twig' %}
+    </header>
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
