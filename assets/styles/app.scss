@@ -8,7 +8,7 @@ $primary: darken(#428bca, 20%);
 
 
 .navbar {
-  background : black;
+  background : #000000;
   font-family: 'Big Shoulders Text', cursive;
   font-size: 1.5rem;
 }
@@ -17,7 +17,7 @@ $primary: darken(#428bca, 20%);
   width: 10rem;
 }
 
-.navbar a {
+.ws-nav-item{
   color: white;
 }
 
@@ -28,9 +28,5 @@ $primary: darken(#428bca, 20%);
 .ws-nav {
   font-family: 'Waterfall', cursive;
   font-size: 3rem;
-}
-
-.ws-nav a:hover {
-  color: white;
 }
 
