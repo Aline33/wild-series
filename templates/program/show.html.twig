@@ -3,16 +3,20 @@
 {% block title %}Série #{{ program.id }}{% endblock %}
 
 {% block body %}
-    <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-        <div class="media-body">
-            <h1 class="mt-0">{{ program.title }}</h1>
-            <p>{{ program.synopsis }}</p>
-            <p>Catégorie : {{ program.category.name }}</p>
+    <div class="my-5 mx-auto" style="width: 60%">
+        <div class="card">
+            <div class="media">
+                <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+                <div class="media-body">
+                    <h1 class="mt-0">{{ program.title }}</h1>
+                    <h6>Catégorie : {{ program.category.name }}</h6>
+                    <p>{{ program.synopsis }}</p>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <a href="{{ path('program_index') }}">
-        Retour à la liste des programmes
-    </a>
+        <a href="{{ path('program_index') }}">
+            Retour à la liste des programmes
+        </a>
+    </div>
 {% endblock %}

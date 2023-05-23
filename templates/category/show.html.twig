@@ -3,12 +3,19 @@
 {% block title %}Catégorie {{category}}{% endblock %}
 
 {% block body %}
+    <h1 class="text-center m-5" >Toutes les séries de la catégorie {{ category }} : </h1>
+    <div class="row m-auto" style="width:80%;">
     {% for program in programs %}
-    <div>
-        <h2>{{ loop.index }} / {{ program.title }}</h2>
-        <p>{{ program.synopsis }}</p>
-        <a href="{{ path('program_show', {id: program.id}) }}">Voir la fiche</a>
-    </div>
+        <div class="col-sm-4 mb-3">
+            <div class="card" style="width: 18rem; height: 20rem;">
+                <img src="{{ program.poster }}" class="card-img-top" alt="{{ program.title }} poster">
+                <div class="card-body">
+                    <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
+                    <p class="card-text">{{ program.synopsis }}</p>
+                    <a href="{{ path('program_show', {id: program.id}) }}" class="btn btn-dark">Voir la fiche</a>
+                </div>
+            </div>
+        </div>
     {% else %}
     Aucune série trouvée.
     {% endfor %}
