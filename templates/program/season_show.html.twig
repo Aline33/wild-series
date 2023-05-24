@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% block title %}Saison # {{ season.number }}{% endblock %}
 
 {% block body %}
     <div class="my-5 mx-auto" style="width: 60%">
@@ -8,14 +8,15 @@
             <div class="media">
                 <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
                 <div class="media-body">
-                    <h1 class="mt-0">{{ program.title }}</h1>
-                    <h6>Catégorie : {{ program.category.name }}</h6>
-                    <p>{{ program.synopsis }}</p>
+                    <h1 class="mt-0">Saison {{ season.number }} de {{ program.title }}</h1>
+                    <h6>{{ season.year }}</h6>
+                    <p>{{ season.description }}</p>
                     <ul>
-                        {% for season in seasons %}
-                            <a href="{{ path('program_season_show', {programId: program.id, seasonId: season.id}) }}"><li>{{ season.number }}</li></a>
+                        {% for episode in episodes %}
+                            <li>Episode {{ episode.number }} : {{ episode.synopsis }}</li>
                         {% endfor %}
                     </ul>
+
 
                 </div>
             </div>
