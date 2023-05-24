@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
 
-    const PROGRAMS = [
+    public const PROGRAMS = [
         ['title' => 'Walking dead',
             'synopsis' => 'Des zombies envahissent la terre',
             'category' => 'Action',
@@ -41,6 +41,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setTitle($sousProgram['title']);
             $program->setSynopsis($sousProgram['synopsis']);
             $program->setCategory($this->getReference('category_' . $sousProgram['category']));
+            $this->addReference('program_' . str_replace(' ','',  $sousProgram['title']), $program);
             $manager->persist($program);
         }
         $manager->flush();
