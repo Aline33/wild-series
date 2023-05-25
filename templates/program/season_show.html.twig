@@ -4,26 +4,26 @@
 
 {% block body %}
     <div class="my-5 mx-auto" style="width: 60%">
-        <div class="card">
-            <div class="media">
-                <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-                <div class="media-body">
-                    <h1 class="mt-0">Saison {{ season.number }} de {{ program.title }}</h1>
-                    <h6>{{ season.year }}</h6>
-                    <p>{{ season.description }}</p>
-                    <ul>
-                        {% for episode in episodes %}
+        <div class="card p-3">
+            <div class="media-body">
+                <h1 class="mt-0">Saison {{ season.number }} de {{ program.title }}</h1>
+                <h6>{{ season.year }}</h6>
+                <p>{{ season.description }}</p>
+                <ul>
+                    {% for episode in episodes %}
+                        <a href="{{ path('program_episode_show', {program: program.id, season: season.id, episode: episode.id}) }}">
                             <li>Episode {{ episode.number }} : {{ episode.title }}</li>
-                        {% endfor %}
-                    </ul>
+                        </a>
+                    {% endfor %}
+                </ul>
 
 
-                </div>
             </div>
+
         </div>
 
-        <a href="{{ path('program_index') }}">
-            Retour à la liste des programmes
+        <a href="{{ path('program_show', {program: program.id}) }}">
+            Retour à la fiche série
         </a>
     </div>
 {% endblock %}
