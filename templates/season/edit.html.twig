@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour une saison{% endblock %}
+
+{% block body %}
+<div class="text-center card mx-auto my-5" style="width:40rem;">
+    <h1>Mettre à jour une saison</h1>
+
+    {{ include('season/_form.html.twig', {'button_label': 'Update'}) }}
+</div>
+    <a href="{{ path('app_season_index') }}">Retour à la liste</a>
+
+    {{ include('season/_delete_form.html.twig') }}
+{% endblock %}

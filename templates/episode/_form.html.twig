@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    <div class="form-group m-auto" style="width:20rem;">
+        {{ form_widget(form) }}
+    </div>
+    <button class="btn btn-dark m-3">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
