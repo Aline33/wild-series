@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour un épisode{% endblock %}
+
+{% block body %}
+<div class="text-center card mx-auto my-5" style="width:40rem;">
+    <h1>Mettre à jour un épisode</h1>
+
+    {{ include('episode/_form.html.twig', {'button_label': 'Update'}) }}
+</div>
+    <a href="{{ path('app_episode_index') }}">Retour à la liste</a>
+
+    {{ include('episode/_delete_form.html.twig') }}
+{% endblock %}
