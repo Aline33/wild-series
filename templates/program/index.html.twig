@@ -7,8 +7,9 @@
     <div class="row m-auto" style="width:80%;">
         {% for program in programs %}
         <div class="col-sm-3 mb-3">
-            <div class="card" style="width: 18rem; height: 20rem;">
-                <img src="{{ program.poster }}" class="card-img-top" alt="{{ program.title }} poster">
+            <div class="card" style="width: 18rem; height: 33rem;">
+                <p>{{ program.poster }}</p>
+                <img src="{{ program.poster }}" class="card-img-top" alt="{{ program.title }} poster" style="height:18rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
                     <h6 class="card-text">Catégorie : {{ program.category.name }}</h6>
