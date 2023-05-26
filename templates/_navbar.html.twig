@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
         <div>
-            <img src="{{ asset('build/images/logo.png') }}" alt=""/>
-            <a class="navbar-brand ws-nav ws-nav-item px-5 text-center" href="/">Wild Séries</a>
+            <a href="{{ path('app_index') }}"><img src="{{ asset('build/images/logo.png') }}" alt=""/></a>
+            <a class="navbar-brand ws-nav ws-nav-item px-5 text-center" href="{{ path('app_index') }}">Wild Séries</a>
         </div>
         <div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown px-4">
-                        <a class="nav-link dropdown-toggle ws-nav-item" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ws-nav-item" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Catégories
                         </a>
                         <ul class="dropdown-menu">

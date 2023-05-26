@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1 class="text-center m-5" >Toutes les séries : </h1>
+    <a href="{{ path('program_new') }}">Ajouter un programme</a>
     <div class="row m-auto" style="width:80%;">
         {% for program in programs %}
         <div class="col-sm-3 mb-3">
