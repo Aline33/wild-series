@@ -15,8 +15,9 @@
                             Catégories
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            {% for category in allCategories.findAll %}
+                            <li><a class="dropdown-item" href="{{ path('category_index') }}"> {{ category.name }}</a></li>
+                            {% endfor %}
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>

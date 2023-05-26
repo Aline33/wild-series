@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
                     <p class="card-text">{{ program.synopsis }}</p>
-                    <a href="{{ path('program_show', {id: program.id}) }}" class="btn btn-dark">Voir la fiche</a>
+                    <a href="{{ path('program_show', {program: program.id}) }}" class="btn btn-dark">Voir la fiche</a>
                 </div>
             </div>
         </div>
