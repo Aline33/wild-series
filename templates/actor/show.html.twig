@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{actor.name}}{% endblock %}
+
+{% block body %}
+    <h1 class="text-center m-5" >Toutes les séries de {{ actor.name }} : </h1>
+    <div class="row m-auto" style="width:80%;">
+    <ul>
+    {% for program in programs %}
+        <a href="{{ path('program_show', {program: program.id}) }}">
+            <li>{{ program.title }}</li>
+        </a>
+    {% else %}
+        Aucune série trouvée.
+    {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock body %}
