@@ -1,0 +1,6 @@
+{% extends '_email.html.Twig' %}
+
+{% block title %}Nouvel Episode{% endblock %}
+{% block h1 %}episode #{{ episode.number }} : {{ episode.title }}{% endblock %}
+{% block p %}le nouvel épisode {{ episode.title }} de la saison {{ episode.season.number }} de la série {{ episode.season.program.title }}{% endblock%}
+{% block synopsis%} {{episode.synopsis }} {% endblock %}
