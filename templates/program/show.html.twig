@@ -13,7 +13,7 @@
                     <p>{{ program.synopsis }}</p>
                     <ul>
                     {% for season in seasons %}
-                        <a href="{{ path('program_season_show', {program: program.id, season: season.id}) }}">
+                        <a href="{{ path('program_season_show', {slug: program.slug, season: season.id}) }}">
                             <li>Saison {{ season.number }} </li>
                         </a>
                     {% endfor %}
@@ -28,6 +28,7 @@
                             <li>Aucun acteur pour cette série</li>
                         {% endfor %}
                     </ul>
+                    <p>{{ programDuration }}</p>
                 </div>
             </div>
         </div>

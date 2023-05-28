@@ -6,6 +6,7 @@ use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use App\Service\ProgramDuration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,7 +75,8 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
+    #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
     public function show(Program $program, ProgramDuration $programDuration): Response
     {
         //$program = $programRepository->findOneBy(['id' => $id]);
@@ -93,7 +95,8 @@ class ProgramController extends AbstractController
             'programDuration' => $programDuration->calculate($program),
         ]);
     }
-    #[Route('/{program}/season/{season}', name: 'season_show', requirements: ['id'=>'\d+'])]
+    #[Route('/{slug}/season/{season}', name: 'season_show')]
+    #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
     public function showSeason(Program $program, Season $season) : Response
     {
         //$program = $programRepository->findOneBy(['id' => $programId]);
@@ -107,7 +110,9 @@ class ProgramController extends AbstractController
             'episodes' => $episodes,
         ]);
     }
-#[Route('/{program}/season/{season}/episode/{episode}', name:'episode_show', requirements: ['id'=>'\d+'])]
+#[Route('/{slug_program}/season/{season}/episode/{slug_episode}', name:'episode_show')]
+#[ParamConverter('program', options: ['mapping' => ['slug_program' => 'slug']])]
+#[ParamConverter('episode', options: ['mapping' => ['slug_episode' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode) : Response
     {
 
