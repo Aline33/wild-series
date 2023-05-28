@@ -6,6 +6,7 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -38,6 +39,16 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             ],
     ];
 
+    private sluggerInterface $slug;
+
+    /**
+     * @param SluggerInterface $slug
+     */
+    public function __construct(SluggerInterface $slug)
+    {
+        $this->slug = $slug;
+    }
+
     public function load(ObjectManager $manager): void
     {
         foreach (self::PROGRAMS as $key => $sousProgram) {
@@ -48,6 +59,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setPoster($sousProgram['poster']);
             $program->setCategory($this->getReference('category_' . $sousProgram['category']));
             $this->addReference('program_' . str_replace(' ','',  $sousProgram['title']), $program);
+            $jesaispascequejefais = $this->slug->slug($sousProgram['title']);
+            $program->setSlug($jesaispascequejefais);
             $manager->persist($program);
         }
         $manager->flush();

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Service\ProgramDuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use App\Entity\Episode;
 use App\Form\ProgramType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route("/program", name: "program_")]
 class ProgramController extends AbstractController
@@ -37,9 +38,13 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, ProgramRepository $programRepository): Response
+    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $program = new Program();
+
+        //$slug = $slugger->slug( $program->getTitle());
+        //$program->setSlug($slug);
+
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
@@ -56,7 +61,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{program}', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
-    public function show(Program $program): Response
+    public function show(Program $program, ProgramDuration $programDuration): Response
     {
         //$program = $programRepository->findOneBy(['id' => $id]);
         //$seasons = $seasonRepository->findBy(['program' => $program->getId()]);
@@ -71,6 +76,7 @@ class ProgramController extends AbstractController
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
+            'programDuration' => $programDuration->calculate($program),
         ]);
     }
     #[Route('/{program}/season/{season}', name: 'season_show', requirements: ['id'=>'\d+'])]
