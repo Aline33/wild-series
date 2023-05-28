@@ -4,6 +4,7 @@ twig:
     globals:
         allCategories: '@App\Repository\CategoryRepository'
         allPrograms: '@App\Repository\ProgramRepository'
+        allActors: '@App\Repository\ActorRepository'
 
 when@test:
     twig:

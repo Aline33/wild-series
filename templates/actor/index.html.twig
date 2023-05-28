@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les acteurs{% endblock %}
+
+{% block body %}
+    <div class="card mx-auto my-5" style="width: 40rem;">
+        <h1 class="text-center m-3" >Tous les acteurs : </h1>
+        <ul>
+            {% for actor in actors %}
+                <a href="{{ path('actor_show', {actor: actor.id}) }}"><li>{{ actor.name }}</li></a>
+            {% else %}
+                Aucun acteur trouvé.
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
