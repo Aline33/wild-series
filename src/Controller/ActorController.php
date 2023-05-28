@@ -17,7 +17,6 @@ class ActorController extends AbstractController
     #[Route('/', name: "index")]
     public function index(ActorRepository $actorRepository) : Response
     {
-
         $actors = $actorRepository->findAll();
 
         return $this->render('actor/index.html.twig', [
