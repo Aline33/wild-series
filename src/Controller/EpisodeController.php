@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Episode;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/episode')]
 class EpisodeController extends AbstractController
@@ -24,11 +26,14 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_episode_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EpisodeRepository $episodeRepository, MailerInterface $mailer): Response
+    public function new(Request $request, EpisodeRepository $episodeRepository, SluggerInterface $slugger, MailerInterface $mailer): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
+
+        $slug = $slugger->slug($episode->getTitle());
+        $episode->setSlug($slug);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
@@ -54,7 +59,8 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_episode_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_episode_show', methods: ['GET'])]
+    #[ParamConverter('episode', options: ['mapping' => ['slug' => 'slug']])]
     public function show(Episode $episode): Response
     {
         return $this->render('episode/show.html.twig', [
@@ -62,11 +68,15 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_episode_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
+    #[Route('/{slug}/edit', name: 'app_episode_edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('episode', options: ['mapping' => ['slug' => 'slug']])]
+    public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
+
+        $slug = $slugger->slug($episode->getTitle());
+        $episode->setSlug($slug);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
