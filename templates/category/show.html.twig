@@ -7,12 +7,12 @@
     <div class="row m-auto" style="width:80%;">
     {% for program in programs %}
         <div class="col-sm-4 mb-3">
-            <div class="card" style="width: 18rem; height: 20rem;">
-                <img src="{{ program.poster }}" class="card-img-top" alt="{{ program.title }} poster">
+            <div class="card" style="width: 18rem; height: 33rem;">
+                <img style="height: 18rem;" src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
                     <p class="card-text">{{ program.synopsis }}</p>
-                    <a href="{{ path('program_show', {program: program.id}) }}" class="btn btn-dark">Voir la fiche</a>
+                    <a href="{{ path('program_show', {slug: program.slug}) }}" class="btn btn-dark">Voir la fiche</a>
                 </div>
             </div>
         </div>

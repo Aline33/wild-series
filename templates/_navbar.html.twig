@@ -16,7 +16,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for category in allCategories.findAll %}
-                            <li><a class="dropdown-item" href="{{ path('category_index') }}"> {{ category.name }}</a></li>
+                            <li><a class="dropdown-item" href="{{ path('category_show', {categoryName: category.name}) }}"> {{ category.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -26,7 +26,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for actor in allActors.findAll %}
-                                <li><a class="dropdown-item" href="{{ path('actor_index') }}"> {{ actor.name }}</a></li>
+                                <li><a class="dropdown-item" href="{{ path('actor_show', {actor: actor.id}) }}"> {{ actor.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
