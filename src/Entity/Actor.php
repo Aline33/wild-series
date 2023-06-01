@@ -34,6 +34,9 @@ class Actor
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->programs = new ArrayCollection();
@@ -114,5 +117,17 @@ class Actor
     public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

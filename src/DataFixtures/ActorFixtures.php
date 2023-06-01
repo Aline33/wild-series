@@ -7,9 +7,21 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
+    private sluggerInterface $slug;
+
+    /**
+     * @param SluggerInterface $slug
+     */
+    public function __construct(SluggerInterface $slug)
+    {
+        $this->slug = $slug;
+    }
+
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -27,6 +39,8 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
             $actor->addProgram($this->getReference('program_' . str_replace(' ', '', $titleProgram1)));
             $actor->addProgram($this->getReference('program_' . str_replace(' ', '', $titleProgram2)));
             $actor->addProgram($this->getReference('program_' . str_replace(' ', '', $titleProgram3)));
+            $slugActor = $this->slug->slug($actor->getName());
+            $actor->setSlug($slugActor);
 
             $manager->persist($actor);
         }

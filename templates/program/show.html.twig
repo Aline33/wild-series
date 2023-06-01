@@ -21,7 +21,7 @@
                     <strong>Acteurs :</strong>
                     <ul>
                         {% for actor in program.actors %}
-                        <a href="{{ path('actor_show', {actor: actor.id}) }}">
+                        <a href="{{ path('actor_show', {slug: actor.slug}) }}">
                             <li>{{ actor.name }}</li>
                         </a>
                         {% else %}
