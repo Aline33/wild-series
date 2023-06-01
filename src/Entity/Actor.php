@@ -25,14 +25,14 @@ class Actor
     #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
     private Collection $programs;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[Vich\UploadableField(mapping: 'actor_file', fileNameProperty: 'picture')]
     private ?File $pictureFile = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -95,6 +95,9 @@ class Actor
     public function setPictureFile(File $image = null): Actor
     {
         $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
         return $this;
     }
 
@@ -103,15 +106,13 @@ class Actor
         return $this->pictureFile;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
