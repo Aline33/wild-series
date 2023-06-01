@@ -1,28 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les programmes{% endblock %}
+{% block title %}Program index{% endblock %}
 
 {% block body %}
-    <h1 class="text-center m-5" >Toutes les séries : </h1>
-    <a href="{{ path('program_new') }}">Ajouter un programme</a>
-    <div class="row m-auto" style="width:80%;">
+    <h1>Program index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Synopsis</th>
+            <th>Poster</th>
+            <th>Country</th>
+            <th>Year</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for program in programs %}
-        <div class="col-sm-3 mb-3">
-            <div class="card" style="width: 18rem; height: 33rem;">
-                <img style="height: 18rem;" src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
-                    <h6 class="card-text">Catégorie : {{ program.category.name }}</h6>
-                    <p class="card-text">{{ program.synopsis }}</p>
-                    <a href="{{ path('program_show', {slug: program.slug}) }}" class="btn btn-dark">Voir la fiche</a>
-                </div>
-            </div>
-        </div>
+            <tr>
+                <td>{{ program.id }}</td>
+                <td>{{ program.title }}</td>
+                <td>{{ program.synopsis }}</td>
+                <td>{{ program.poster }}</td>
+                <td>{{ program.country }}</td>
+                <td>{{ program.year }}</td>
+                <td>
+                    <a href="{{ path('program_show', {'slug': program.slug}) }}">show</a>
+                    <a href="{{ path('program_edit', {'slug': program.slug}) }}">edit</a>
+                </td>
+            </tr>
         {% else %}
-            Aucune série trouvée.
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
         {% endfor %}
-    </div>
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
-    </a>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_episode_new') }}">Create new</a>
 {% endblock %}
