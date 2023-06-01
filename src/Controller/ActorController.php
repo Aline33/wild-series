@@ -9,6 +9,7 @@ use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ActorRepository;
 use App\Repository\ProgramRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,5 +61,38 @@ class ActorController extends AbstractController
             'actor' => $actor,
             'programs' => $programs,
         ]);
+    }
+
+    #[Route('/{actor}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Actor $actor, ActorRepository $actorRepository): Response
+    {
+        $form = $this->createForm(ActorType::class, $actor);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $actorRepository->save($actor, true);
+
+            $this->addFlash('success', 'L\'acteur a été mis à jour avec succès.');
+
+            return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('actor/edit.html.twig', [
+            'actor' => $actor,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Actor $actor, ActorRepository $actorRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$actor->getId(), $request->request->get('_token'))) {
+            $actorRepository->remove($actor, true);
+
+            $this->addFlash('danger', 'L\'acteur a été supprimé avec succès.');
+        }
+
+        return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
     }
 }

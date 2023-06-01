@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour un acteur{% endblock %}
+
+{% block body %}
+    <div class="text-center card mx-auto my-5" style="width:40rem;">
+        <h1>Mettre à jour un acteur</h1>
+
+        {{ include('actor/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+    <a href="{{ path('actor_index') }}">Retour à la liste</a>
+
+    {{ include('actor/_delete_form.html.twig') }}
+{% endblock %}
