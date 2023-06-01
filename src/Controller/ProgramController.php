@@ -52,10 +52,11 @@ class ProgramController extends AbstractController
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
-        $slug = $slugger->slug($program->getTitle());
-        $program->setSlug($slug);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug = $slugger->slug($program->getTitle());
+            $program->setSlug($slug);
+
             $programRepository->save($program, true);
 
             $email = (new Email())
