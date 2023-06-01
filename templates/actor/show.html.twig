@@ -3,11 +3,13 @@
 {% block title %}{{actor.name}}{% endblock %}
 
 {% block body %}
-    <h1 class="text-center m-5" >Toutes les séries de {{ actor.name }} : </h1>
+    <h1 class="text-center m-5">{{ actor.name }}</h1>
+    <img src="{{ vich_uploader_asset(actor) }}" alt="{{ actor.name }}">
+    <h2 class="text-center m-5" >Toutes les séries de {{ actor.name }} : </h2>
     <div class="row m-auto" style="width:80%;">
     <ul>
     {% for program in programs %}
-        <a href="{{ path('program_show', {program: program.id}) }}">
+        <a href="{{ path('program_show', {slug: program.slug}) }}">
             <li>{{ program.title }}</li>
         </a>
     {% else %}
