@@ -9,7 +9,7 @@
         {% for program in programs %}
         <div class="col-sm-3 mb-3">
             <div class="card" style="width: 18rem; height: 33rem;">
-                <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
+                <img style="height: 18rem;" src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
                     <h6 class="card-text">Catégorie : {{ program.category.name }}</h6>
@@ -22,7 +22,6 @@
             Aucune série trouvée.
         {% endfor %}
     </div>
-
     <a href="{{ path('app_index') }}">
         Retour à l'accueil
     </a>
