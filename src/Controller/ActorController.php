@@ -32,7 +32,7 @@ class ActorController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, ActorRepository $actorRepository): Response
+    public function new(Request $request, ActorRepository $actorRepository, SluggerInterface $slugger): Response
     {
         $actor = new Actor();
 
@@ -40,6 +40,9 @@ class ActorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug = $slugger->slug($actor->getName());
+            $actor->setSlug($slug);
 
             $actorRepository->save($actor, true);
 
@@ -52,7 +55,8 @@ class ActorController extends AbstractController
         ]);
     }
 
-    #[Route('/{actor}', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
+    #[ParamConverter('actor', options: ['mapping' => ['slug' => 'slug']])]
     public function show(Actor $actor): Response
     {
         $programs = $actor->getPrograms();
@@ -63,13 +67,17 @@ class ActorController extends AbstractController
         ]);
     }
 
-    #[Route('/{actor}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Actor $actor, ActorRepository $actorRepository): Response
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('actor', options: ['mapping' => ['slug' => 'slug']])]
+    public function edit(Request $request, Actor $actor, ActorRepository $actorRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ActorType::class, $actor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug = $slugger->slug($actor->getName());
+            $actor->setSlug($slug);
 
             $actorRepository->save($actor, true);
 

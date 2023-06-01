@@ -16,7 +16,7 @@
         Aucune série trouvée.
     {% endfor %}
     </ul>
-    <a href="{{ path('actor_edit', {'actor': actor.id}) }}">Mettre à jour</a>
+    <a href="{{ path('actor_edit', {'slug': actor.slug}) }}">Mettre à jour</a>
 
     <a href="{{ path('actor_index') }}">
         Retour à la liste
