@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,7 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentRepository $commentRepository): Response
     {
@@ -48,9 +50,15 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/{id}/edit', name: 'app_comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Comment $comment, CommentRepository $commentRepository): Response
     {
+
+        if($this->getUser() !== $comment->getAuthor() && !in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw $this->createAccessDeniedException('Only the owner can edit the comment!');
+        }
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -66,9 +74,15 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[isGranted('ROLE_CONTRIBUTOR')]
     #[Route('/{id}', name: 'app_comment_delete', methods: ['POST'])]
     public function delete(Request $request, Comment $comment, CommentRepository $commentRepository): Response
     {
+        if($this->getUser() !== $comment->getAuthor() && !in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw $this->createAccessDeniedException('Only the owner can edit the comment!');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $commentRepository->remove($comment, true);
         }

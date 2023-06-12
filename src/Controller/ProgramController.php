@@ -61,6 +61,8 @@ class ProgramController extends AbstractController
             $slug = $slugger->slug($program->getTitle());
             $program->setSlug($slug);
 
+            $program->setOwner($this->getUser());
+
             $programRepository->save($program, true);
 
             $email = (new Email())
@@ -153,6 +155,10 @@ class ProgramController extends AbstractController
     #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
     public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
+        if($this->getUser() !== $program->getOwner()) {
+            throw $this->createAccessDeniedException('Only the owner can edit the program!');
+        }
+
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
