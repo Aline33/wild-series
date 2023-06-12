@@ -32,6 +32,7 @@ class UserFixtures extends Fixture
         );
         $contributor->setPassword($hashedPassword);
         $manager->persist($contributor);
+        $this->addReference('user_contributor', $contributor);
 
         $admin = new User();
         $admin->setEmail('admin@wildsérie.com');
@@ -42,6 +43,7 @@ class UserFixtures extends Fixture
         );
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
+        $this->addReference('user_admin', $admin);
 
         $manager->flush();
     }
