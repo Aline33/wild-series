@@ -3,6 +3,7 @@
 {% block title %}Wild Series{% endblock %}
 
 {% block body %}
+    <button {{ stimulus_action('theme', 'toggleDarkMode') }} class="btn btn-dark m-2">Toggle dark mode</button>
 <h1 class="text-center m-5" >Les nouveautés</h1>
 <div class="row m-auto" style="width:80%;">
     {% for program in programs %}
