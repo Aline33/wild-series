@@ -27,6 +27,10 @@
     <div id="swup">
         {% block body %}
         {% endblock %}
+        {{ component('last_episode') }}
     </div>
+    <footer class="m-0 p-3">
+        {% include '_footer.html.twig' %}
+    </footer>
     </body>
 </html>

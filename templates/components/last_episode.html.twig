@@ -1,0 +1,14 @@
+<div{{ attributes }}>
+        <div class="row p-4">
+            {% for episode in this.episodes %}
+            <div class="col-sm-4 mb-3 mb-sm-0">
+                <div class="card" style="height:7rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Episode # {{ episode.number }} : {{ episode.title }}</h5>
+                        <p class="card-text">{{ episode.season.program.title }} - Saison {{ episode.season.number }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
