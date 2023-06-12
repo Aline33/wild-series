@@ -14,7 +14,28 @@
                 </div>
             </div>
         </div>
-
+        <div class="card my-5 p-3">
+            <div class="media">
+                <div class="media-body">
+                    <h5>Commentaires :</h5>
+                    {% for comment in episode.comments %}
+                        <h6>{{ comment.author }} - note : {{ comment.rate }} /5</h6>
+                        <p>{{ comment.comment}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="text-center card mx-auto my-5">
+                <h1 class="m-3">Ajouter une Série</h1>
+                {{ form_start(commentForm) }}
+                <div class="form-group m-auto" style="width:90%;">
+                    {{ form_widget(commentForm) }}
+                </div>
+                <button class="btn btn-dark m-3" type="submit">Ajouter</button>
+                {{ form_end(commentForm) }}
+            </div>
+        {% endif %}
         <a href="{{ path('program_season_show', {slug: program.slug, season: season.id}) }}">
             Retour à la saison
         </a>
