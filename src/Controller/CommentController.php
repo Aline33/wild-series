@@ -78,7 +78,7 @@ class CommentController extends AbstractController
     #[Route('/{id}', name: 'app_comment_delete', methods: ['POST'])]
     public function delete(Request $request, Comment $comment, CommentRepository $commentRepository): Response
     {
-        if($this->getUser() !== $comment->getAuthor() && !in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+        if($this->getUser() !== $comment->getAuthor() && !$this->isGranted("ROLE_ADMIN")) {
             // If not the owner, throws a 403 Access Denied exception
             throw $this->createAccessDeniedException('Only the owner can edit the comment!');
         }
