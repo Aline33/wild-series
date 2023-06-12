@@ -18,7 +18,7 @@
             <div class="media">
                 <div class="media-body">
                     <h5>Commentaires :</h5>
-                    {% for comment in episode.comments %}
+                    {% for comment in comments %}
                         <h6>{{ comment.author.email }} - note : {{ comment.rate }} /5</h6>
                         <p>{{ comment.comment}}</p>
                     {% endfor %}

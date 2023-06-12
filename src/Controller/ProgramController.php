@@ -142,12 +142,14 @@ class ProgramController extends AbstractController
                 'slug_episode' => $episode->getSlug(),
                 ]);
         }
+        $comments = $commentRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
             'commentForm' => $commentForm,
+            'comments' => $comments,
         ]);
     }
 
