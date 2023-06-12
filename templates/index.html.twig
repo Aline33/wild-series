@@ -4,22 +4,36 @@
 
 {% block body %}
     <button {{ stimulus_action('theme', 'toggleDarkMode') }} class="btn btn-dark m-2">Toggle dark mode</button>
-<h1 class="text-center m-5" >Les nouveautés</h1>
-<div class="row m-auto" style="width:80%;">
-    {% for program in programs %}
-        <div class="col-sm-3 mb-3">
-            <div class="card" style="width: 18rem; height: 33rem;">
-                <img style="height: 18rem;" src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
-                    <h6 class="card-text">Catégorie : {{ program.category.name }}</h6>
-                    <p class="card-text">{{ program.synopsis }}</p>
-                    <a href="{{ path('program_show', {slug: program.slug}) }}" class="btn btn-dark">Voir la fiche</a>
+    <div class="p-5 text-center titre" style="font-size: 1.3em; height: 5rem;">
+        <h1
+            {{ stimulus_controller('symfony/ux-typed', {
+                strings: [
+                    'Bienvenue sur Wild Series',
+                    'Suit tes séries préférées !',
+                    'Découvre les dernières actus !',
+                ],
+                loop: true,
+                showCursor: true,
+                cursorChar:'|',
+            }) }}
+        ></h1>
+    </div>
+    <h2 class="text-center p-5 m-5" >Les nouveautés</h2>
+    <div class="row m-auto" style="width:80%;">
+        {% for program in programs %}
+            <div class="col-sm-3 mb-3">
+                <div class="card" style="width: 18rem; height: 33rem;">
+                    <img style="height: 18rem;" src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ loop.index }} - {{ program.title }}</h5>
+                        <h6 class="card-text">Catégorie : {{ program.category.name }}</h6>
+                        <p class="card-text">{{ program.synopsis }}</p>
+                        <a href="{{ path('program_show', {slug: program.slug}) }}" class="btn btn-dark">Voir la fiche</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% else %}
-        Aucune série trouvée.
-    {% endfor %}
-</div>
+        {% else %}
+            Aucune série trouvée.
+        {% endfor %}
+    </div>
 {% endblock %}
