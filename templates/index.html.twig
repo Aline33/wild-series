@@ -18,7 +18,13 @@
             }) }}
         ></h1>
     </div>
-    <h2 class="text-center p-5 m-5" >Les nouveautés</h2>
+    <h2 class="text-center pt-5" >Les nouveautés</h2>
+    <div class="mx-auto text-center p-3" style="width:50%">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-dark my-2">Rechercher</button>
+        {{ form_end(form) }}
+    </div>
     <div class="row m-auto" style="width:80%;">
         {% for program in programs %}
             <div class="col-sm-3 mb-3">
