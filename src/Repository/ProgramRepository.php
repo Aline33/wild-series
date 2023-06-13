@@ -39,6 +39,19 @@ class ProgramRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLikeNameAndActor(string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->join('p.actors', 'a')
+            ->where('p.title LIKE :name')
+            ->orWhere('a.name LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('p.title', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Program[] Returns an array of Program objects
 //     */
