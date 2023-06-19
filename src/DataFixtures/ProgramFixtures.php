@@ -24,7 +24,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             ],
         ['title' => 'The Last of Us',
             'synopsis' => "Une pandémie provoquée par le cordyceps à décimée l'humanité.",
-            'poster' => "the100-647894642f430846313346.webp",
+            'poster' => "thelastofus-64788e063311d081264086.jpeg",
             'category' => 'Action',
         ],
         ['title' => 'The 100',

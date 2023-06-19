@@ -1,8 +1,8 @@
 <div{{ attributes }}>
-        <div class="row p-4">
+        <div class="row p-4 d-flex justify-content-evenly">
             {% for episode in this.episodes %}
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <div class="card" style="height:7rem;">
+            <div class="col-sm-3 mb-3 mb-sm-0 mx-2">
+                <div class="card" style="height:10rem;">
                     <div class="card-body">
                         <h5 class="card-title">Episode # {{ episode.number }} : {{ episode.title }}</h5>
                         <p class="card-text">{{ episode.season.program.title }} - Saison {{ episode.season.number }}</p>
