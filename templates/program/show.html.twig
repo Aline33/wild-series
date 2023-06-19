@@ -6,7 +6,13 @@
     <div class="my-5 mx-auto" style="width: 60%">
         <div class="card">
             <div class="media d-flex">
-                <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}">
+                <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}" style="height:620px">
+                {% if app.user %}
+                <a href="{{ path('program_watchlist', {id: program.id})}}">
+                    <i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                </a>
+                {% endif %}
+
                 <div class="media-body p-3">
                     {% if is_granted("ROLE_ADMIN") %}
                         <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>

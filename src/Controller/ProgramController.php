@@ -9,7 +9,9 @@ use App\Repository\CommentRepository;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Repository\UserRepository;
 use App\Service\ProgramDuration;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -99,13 +101,11 @@ class ProgramController extends AbstractController
         //$program = $programRepository->findOneBy(['id' => $id]);
         //$seasons = $seasonRepository->findBy(['program' => $program->getId()]);
         $seasons = $program->getSeasons();
-
         /*if (!$id) {
             throw $this->createNotFoundException(
                 'No program with id : ' . $id . ' found in program\'s table.'
             );
         }*/
-
         return $this->render('program/show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
@@ -202,5 +202,28 @@ class ProgramController extends AbstractController
         }
 
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/watchlist', methods: ['GET', 'POST'], name: 'watchlist')]
+    public function addToWatchlist(Program $program, UserRepository $userRepository): Response
+    {
+        if (!$program) {
+            throw $this->createNotFoundException(
+                'No program with this id found in program\'s table.'
+            );
+        }
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        if ($user->isInWatchlist($program)) {
+            $user->removeFromWatchlist($program);
+        } else {
+            $user->addToWatchlist($program);
+        }
+        $userRepository->save($user, true);
+
+        return $this->redirectToRoute('program_show', [
+            'slug' => $program->getSlug()
+        ], Response::HTTP_SEE_OTHER);
     }
 }

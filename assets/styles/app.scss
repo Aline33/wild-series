@@ -6,40 +6,43 @@ $primary: darken(#428bca, 20%);
 
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text&family=Waterfall&display=swap');
 
+.row {
+  --bs-gutter-x: 0;
+}
 
 .navbar {
-  background : #000000;
-  font-family: 'Big Shoulders Text', cursive;
-  font-size: 1.5rem;
+background : #000000;
+font-family: 'Big Shoulders Text', cursive;
+font-size: 1.5rem;
 }
 
 .navbar img {
-  width: 10rem;
+width: 10rem;
 }
 
 .ws-nav-item{
-  color: white;
+color: white;
 }
 
 .navbar a:hover {
-  color: #EBCD94;
+color: #EBCD94;
 }
 
 .ws-nav {
-  font-family: 'Waterfall', cursive;
-  font-size: 3rem;
+font-family: 'Waterfall', cursive;
+font-size: 3rem;
 }
 
 body {
-  background: url('../images/bg-popcorn.png');
+background: url('../images/bg-popcorn.png');
 }
 
 .card {
-  background: #EBCD94;
+background: #EBCD94;
 }
 
 footer {
-  background : #000000;
-  color: white;
+background : #000000;
+color: white;
 }
 
