@@ -8,7 +8,7 @@
             <div class="media d-flex">
                 <img src="{{ vich_uploader_asset(program) }}" alt="{{ program.title }}" style="height:620px">
                 {% if app.user %}
-                <a href="{{ path('program_watchlist', {id: program.id})}}">
+                    <a id="watchlist" data-no-swup href="{{ path('program_watchlist', {id: program.id})}}">
                     <i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
                 </a>
                 {% endif %}
